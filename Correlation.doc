@@ -1,0 +1,39 @@
+# Calculate Pearson correlation
+correlation <- cor(car_data_clean$horsepower_clean, car_data_clean$price_clean)
+cat("CORRELATION ANALYSIS\n")
+cat(strrep("=", 50), "\n")
+cat("Pearson Correlation Coefficient (r):", round(correlation, 3), "\n\n")
+
+# Test for statistical significance
+cor_test <- cor.test(car_data_clean$horsepower_clean, car_data_clean$price_clean)
+cat("Hypothesis Test Results:\n")
+cat("Null Hypothesis (H0): No correlation (ρ = 0)\n")
+cat("Alternative Hypothesis (H1): Correlation exists (ρ ≠ 0)\n\n")
+cat("Test Statistic (t):", round(cor_test$statistic, 3), "\n")
+cat("P-value:", format.pval(cor_test$p.value, digits = 3), "\n")
+cat("95% Confidence Interval: [",
+    round(cor_test$conf.int[1], 3), ",",
+    round(cor_test$conf.int[2], 3), "]\n\n")
+
+# Interpret the correlation
+r_value <- abs(correlation)
+if(r_value >= 0.7) {
+  strength <- "strong"
+} else if(r_value >= 0.5) {
+  strength <- "moderate"
+} else if(r_value >= 0.3) {
+  strength <- "weak"
+} else {
+  strength <- "very weak"
+}
+
+cat("INTERPRETATION:\n")
+cat("There is a", strength, if(correlation > 0) "positive" else "negative",
+    "correlation between horsepower and price.\n")
+cat("Correlation coefficient (r) =", round(correlation, 3), "\n")
+
+if(cor_test$p.value < 0.05) {
+  cat("\nSTATISTICAL CONCLUSION: Reject H0. The correlation is statistically significant (p < 0.05).\n")
+} else {
+  cat("\nSTATISTICAL CONCLUSION: Fail to reject H0. The correlation is not statistically significant.\n")
+}
