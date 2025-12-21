@@ -69,38 +69,7 @@ cat("Mean horsepower:", round(mean(car_data_clean$horsepower_clean), 1), "hp\n")
 cat("Mean price: $", format(round(mean(car_data_clean$price_clean)), big.mark = ","), "\n")
 
 # Create scatter plot with proper formatting
-scatter_plot <- ggplot(car_data_clean, aes(x = horsepower_clean, y = price_clean)) +
-  geom_point(aes(color = `Company Names`), size = 3, alpha = 0.8) +
-  geom_smooth(method = "lm", se = TRUE, color = "darkred", linetype = "solid") +
-  labs(
-    title = "Correlation between Horsepower and Car Price",
-    subtitle = "Research Question: Is there a correlation between car horsepower and car prices?",
-    x = "Horsepower (hp)",
-    y = "Price (USD)",
-    color = "Brand"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
-    plot.subtitle = element_text(hjust = 0.5, size = 12),
-    axis.title = element_text(face = "bold"),
-    legend.position = "right",
-    legend.text = element_text(size = 8)
-  ) +
-  scale_y_continuous(
-    labels = scales::dollar_format(),
-    breaks = scales::pretty_breaks(n = 8)
-  ) +
-  scale_x_continuous(
-    breaks = scales::pretty_breaks(n = 8)
-  ) +
-  # Add value labels for extreme points
-  geom_text(
-    data = car_data_clean %>%
-      filter(price_clean > 800000 | horsepower_clean > 900 | price_clean < 20000),
-    aes(label = paste(`Company Names`, `Cars Names`)),
-    hjust = -0.1, vjust = 0.5, size = 3
-  )
+
 
 print(scatter_plot)
 
