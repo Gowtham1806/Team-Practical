@@ -1,11 +1,11 @@
 # Calculate Pearson correlation
-correlation <- cor(car_data_clean$horsepower_clean, car_data_clean$price_clean)
+correlation <- cor(car_data_clean$horsepower_clean, car_data_clean$price_clean, method = "pearson") #change - correlation intended to use is specified
 cat("CORRELATION ANALYSIS\n")
 cat(strrep("=", 50), "\n")
 cat("Pearson Correlation Coefficient (r):", round(correlation, 3), "\n\n")
 
 # Test for statistical significance
-cor_test <- cor.test(car_data_clean$horsepower_clean, car_data_clean$price_clean)
+cor_test <- cor.test(car_data_clean$horsepower_clean, car_data_clean$price_clean, method = "pearson") #change - correlation intended to use is specified
 cat("Hypothesis Test Results:\n")
 cat("Null Hypothesis (H0): No correlation (ρ = 0)\n")
 cat("Alternative Hypothesis (H1): Correlation exists (ρ ≠ 0)\n\n")
